@@ -258,8 +258,8 @@ defmodule ExAirtable.TableCache do
   end
 
   defp generate_hash(items) do
-    :sha256
-    |> :crypto.hmac(@cache_secret, :erlang.term_to_binary(items))
+    :hmac
+    |> :crypto.mac(:sha256, @cache_secret, :erlang.term_to_binary(items))
     |> Base.encode64()
   end
 
